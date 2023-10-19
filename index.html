@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="bootstrap.css">
+  <style>
+    body {
+      background-image: linear-gradient(to top left, rgb(0, 255, 132), rgba(64, 80, 203, 0.63));
+      height: 900px;
+      /* overflow: hidden; */
+      color: white;
+    }
+
+    .box {
+      background-color: rgba(60, 69, 66, 0.315);
+      border-radius: 10px;
+      min-height: 200px;
+      padding: 15px;
+    }
+
+    span {
+      font-weight: 400;
+    }
+
+    h6 {
+      font-size: 14px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container ">
+    <div class="row text-center m-4 ">
+      <h1 class="">WEATHER TEMPLATE</h1>
+    </div>
+    <div class="row gap-4">
+      <div class="col box text-center col-md-6">
+        <h5 class="border-bottom pb-2">LOCAL WEATHER REPORT</h5>
+        <div class="row" id="day-section">
+
+        </div>
+      </div>
+      <div class="col box text-center ">
+        <h5 class="border-bottom pb-2">SEA FORECAST REPORT</h5>
+        <h6 class="text-uppercase mb-3">wind spead <span>(knots)</span>------------------------------------------- 13
+        </h6>
+        <h6 class="text-uppercase mb-3">wind spead <span>(knots)</span>------------------------------------------- 13
+        </h6>
+        <h6 class="text-uppercase mb-3">wind spead <span>(knots)</span>------------------------------------------- 13
+        </h6>
+        <h6 class="text-uppercase mb-3">wind spead <span>(knots)</span>------------------------------------------- 13
+        </h6>
+        <h6 class="text-uppercase mb-3">wind spead <span>(knots)</span>------------------------------------------- 13
+        </h6>
+
+
+      </div>
+    </div>
+
+    <div class="row box mt-4 pt-5 pb-4 mb-5" id="days-weathers">
+
+    </div>
+
+  </div>
+  </div>
+  <script>
+    let weather = `[
+      {"day":"sunday","img":"Forecast/Snow.png" ,"status":"sunny","c":"20","f":"17","speed":"14KM/H SW"},
+      {"day":"monday","img":"Forecast/Cloud.png" ,"status":"sunny","c":"20","f":"17","speed":"14KM/H SW"},
+      {"day":"tuesday","img":"Forecast/RainThunder.png" ,"status":"sunny","c":"20","f":"17","speed":"14KM/H SW"},
+      {"day":"wednesday","img":"Forecast/Cloud.png" ,"status":"sunny","c":"20","f":"17","speed":"14KM/H SW"},
+      {"day":"thersday","img":"Forecast/SunCloud.png" ,"status":"sunny","c":"20","f":"17","speed":"14KM/H SW"},
+      {"day":"friday","img":"Forecast/Snow.png" ,"status":"sunny","c":"20","f":"17","speed":"14KM/H SW"}
+
+    ]`;
+    let weaterObj = JSON.parse(weather);
+
+    let daySection = document.getElementById('day-section');
+    let imgs = ['./JS/Forecast/Snow.png', './JS/Forecast/Cloud.png', './JS/Forecast/RainThunder.png', './JS/Forecast/Cloud.png', './JS/Forecast/SunCloud.png'];
+    let day = document.getElementById('day');
+    //random images
+    // let radomIndex = Math.floor(Math.random() * imgs.length);
+    // let radomImage = imgs[radomIndex];
+    // day.src = radomImage;
+    let thisDay = new Date().getDay();
+    let dayBlock = `
+    <div class=" col">
+            <img class="my-4" id="day" src="${weaterObj[thisDay].img}" width="100" alt="">
+            <p>${weaterObj[thisDay].speed}</p>
+          </div>
+          <div class="col">
+            <div>
+              <h4 class="text-uppercase">${weaterObj[thisDay].day}</h4>
+              <h6 class="text-uppercase">${weaterObj[thisDay].status}</h6>
+            </div>
+            <div class="mt-5">
+              <h4 class="mb-0">${weaterObj[thisDay].c} C</h4>
+              <h4>${weaterObj[thisDay].f} F</h4>
+            </div>
+
+          </div>
+    `;
+    daySection.innerHTML = dayBlock;
+    let days = document.getElementById('days-weathers');
+    let x = `<div class="col text-center ">
+        <h5 class="mb-5">MONDAY</h5>
+        <img src="Forecast/SunCloud.png" alt="">
+        <h4 class="mt-5">20ْ C</h4>
+        <h4>71.6ْ F</h4>
+      </div>`
+
+
+    for (let i = 0; i < weaterObj.length; i++) {
+      if (i === thisDay) {
+        continue;
+      }
+      let container = document.createElement('div');
+      container.classList.add('col', 'text-center', 'border-end');
+      if (i === weaterObj.length - 1) {
+        container.classList.remove('border-end');
+      }
+
+      let h5 = document.createElement('h5');
+      let img = document.createElement('img');
+      let h41 = document.createElement('h4');
+      let h42 = document.createElement('h4');
+
+      h5.className = "mb-5";
+      h41.className = 'mt-5';
+      container.appendChild(h5);
+      h5.textContent = weaterObj[i].day;
+      container.appendChild(img);
+      img.src = weaterObj[i].img;
+      container.appendChild(h41);
+      h41.textContent = weaterObj[i].c + 'ْ C';
+
+      container.appendChild(h42);
+      h42.textContent = weaterObj[i].f + 'ْ F';
+      days.appendChild(container);
+    }
+    console.log(container)
+
+  </script>
+</body>
+
+</html>
