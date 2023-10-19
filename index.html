@@ -105,14 +105,6 @@
     `;
     daySection.innerHTML = dayBlock;
     let days = document.getElementById('days-weathers');
-    let x = `<div class="col text-center ">
-        <h5 class="mb-5">MONDAY</h5>
-        <img src="Forecast/SunCloud.png" alt="">
-        <h4 class="mt-5">20ْ C</h4>
-        <h4>71.6ْ F</h4>
-      </div>`
-
-
     for (let i = 0; i < weaterObj.length; i++) {
       if (i === thisDay) {
         continue;
@@ -127,9 +119,8 @@
       let img = document.createElement('img');
       let h41 = document.createElement('h4');
       let h42 = document.createElement('h4');
-
-      h5.className = "mb-5";
-      h41.className = 'mt-5';
+      h5.classList.add('mb-5', 'text-uppercase');
+      h41.classList.add('mt-5', 'text-uppercase');
       container.appendChild(h5);
       h5.textContent = weaterObj[i].day;
       container.appendChild(img);
